@@ -1,0 +1,87 @@
+.model small
+.8087
+.data
+K DT 0 
+.stack 100h
+.code
+MOV AX,@data
+MOV DS,AX
+MOV ES,AX
+
+;Intialize
+LEA BX,K
+XOR DX,DX; DH digits after decimal point
+XOR BP,BP
+MOV SI,BX
+
+R1:
+	MOV AH,1
+	int 21h
+	CMP AL,'-'
+	JNE R2
+	MOV BYTE PTR [BX+9],128d
+	JMP R1
+
+R2:
+	CMP AL,'.'
+	JNE R3
+	INC DH
+	JMP R1
+
+R3:
+	CMP AL,0Dh
+	JE R4
+	AND AL,0Fh
+	PUSH AX
+	INC BP
+	CMP DH,0
+	JE R1
+	INC DL
+	JMP R1
+	
+R4:
+	MOV CL,4
+R5:
+	POP AX
+	MOV [BX],AL
+	DEC BP
+	JZ R6
+	POP AX
+	SHL AL,CL
+	OR [BX],AL
+	INC BX
+	DEC BP
+	JG R5
+
+R6:	   
+	FBLD TBYTE PTR[SI]
+	CMP DL,0
+	JE R7
+	XOR CX,CX
+	MOV CL,DL
+	MOV AX,1
+	MOV BX,10
+	
+R8:
+	IMUL BX
+	Loop R8
+	MOV [SI],AX
+	FIDIV WORD PTR[SI]
+R7:
+	FBSTP TBYTE PTR[SI]
+	
+FWAIT
+MOV AH,76
+Int 21h
+
+
+END
+	
+	
+	
+	
+	
+	
+	
+	
+	

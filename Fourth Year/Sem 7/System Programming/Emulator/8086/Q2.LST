@@ -1,0 +1,71 @@
+Microsoft (R) Macro Assembler Version 5.00                  11/19/19 02:03:03
+                                                             Page     1-1
+
+
+				.model small 
+ 0100				.stack 100h 
+ 0000				.data 
+ 0000  0004[			ARR DB 4 DUP(?) 
+	    ??			
+			 ]	
+				
+ 0000				.code 
+ 0000  B8 ---- R		MOV AX,@data 
+ 0003  8E D8			MOV DS,AX 
+ 0005  8E C0			MOV ES,AX 
+ 0007  33 DB			XOR BX,BX 
+ 0009  8D 36 0000 R		LEA SI,ARR 
+				 
+ 000D  B4 01			MOV AH,1 
+ 000F  B9 0004			MOV CX,4 
+ 0012				L1: 
+ 0012  CD 21				int 21h 
+ 0014  88 04				MOV [SI],AL 
+ 0016  02 D8				ADD BL,AL 
+ 0018  46				INC SI 
+ 0019  E2 F7				LOOP L1 
+				 
+ 001B  B4 02			MOV AH,2 
+ 001D  8A D3			MOV DL,BL 
+ 001F  80 C2 30			ADD DL,48 
+				 
+ 0022  CD 21			int 21h 
+				 
+ 0024  B4 4C			MOV AH,76 
+ 0026  CD 21			int 21h 
+ 0028				END 
+Microsoft (R) Macro Assembler Version 5.00                  11/19/19 02:03:03
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+DGROUP . . . . . . . . . . . . .  	GROUP
+  _DATA  . . . . . . . . . . . .  	0004	WORD	PUBLIC	'DATA'
+  STACK  . . . . . . . . . . . .  	0100	PARA	STACK	'STACK'
+_TEXT  . . . . . . . . . . . . .  	0028	WORD	PUBLIC	'CODE'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+ARR  . . . . . . . . . . . . . .  	L BYTE	0000	_DATA	Length = 0004
+
+L1 . . . . . . . . . . . . . . .  	L NEAR	0012	_TEXT
+
+@CODE  . . . . . . . . . . . . .  	TEXT  _TEXT		
+@CODESIZE  . . . . . . . . . . .  	TEXT  0		
+@DATASIZE  . . . . . . . . . . .  	TEXT  0		
+@FILENAME  . . . . . . . . . . .  	TEXT  Q2		
+
+
+     29 Source  Lines
+     29 Total   Lines
+     16 Symbols
+
+  51180 + 465364 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

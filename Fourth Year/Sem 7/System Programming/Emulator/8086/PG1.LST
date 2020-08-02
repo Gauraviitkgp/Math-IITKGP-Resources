@@ -1,0 +1,88 @@
+Microsoft (R) Macro Assembler Version 5.00                  11/18/19 19:08:37
+                                                             Page     1-1
+
+
+       1				.model SMALL 
+       2				EXTRN CONVERT:PROC 
+       3 0100				.stack 100h 
+       4 0000				.data 
+       5 0000  0006[			Naam DB 6 DUP(?),'$' 
+       6	    ??			
+       7			 ]	
+       8       24			
+       9 0000				.code 
+      10 0000				MAIN PROC 
+      11 0000  B8 ---- R		MOV AX,@data 
+      12 0003  8E D8			MOV DS,AX 
+      13 0005  8E C0			MOV ES,AX 
+      14				 
+      15 0007  B4 01			MOV AH,1 
+      16 0009  8D 3E 0000 R		LEA DI,Naam 
+      17				rept 6 
+      18					int 21h 
+      19					STOSB 
+      20				endm 
+      21 000D  CD 21                 1		int 21h 
+      22 000F  AA                    1		STOSB 
+      23 0010  CD 21                 1		int 21h 
+      24 0012  AA                    1		STOSB 
+      25 0013  CD 21                 1		int 21h 
+      26 0015  AA                    1		STOSB 
+      27 0016  CD 21                 1		int 21h 
+      28 0018  AA                    1		STOSB 
+      29 0019  CD 21                 1		int 21h 
+      30 001B  AA                    1		STOSB 
+      31 001C  CD 21                 1		int 21h 
+      32 001E  AA                    1		STOSB 
+      33				 
+      34 001F  8D 36 0000 R		LEA SI,Naam 
+      35 0023  B9 0006			MOV CX,6 
+      36 0026  E8 0000 E		call Convert 
+      37				 
+      38				 
+      39 0029  B4 09			MOV AH,9 
+      40 002B  8D 16 0000 R		LEA DX,naam 
+      41 002F  CD 21			int 21h 
+      42				 
+      43				 
+      44 0031  B4 4C			MOV AH,76 
+      45 0033  CD 21			int 21h 
+      46 0035				MAIN ENDP 
+      47 0035				END MAIN 
+Microsoft (R) Macro Assembler Version 5.00                  11/18/19 19:08:37
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+DGROUP . . . . . . . . . . . . .  	GROUP
+  _DATA  . . . . . . . . . . . .  	0007	WORD	PUBLIC	'DATA'
+  STACK  . . . . . . . . . . . .  	0100	PARA	STACK	'STACK'
+_TEXT  . . . . . . . . . . . . .  	0035	WORD	PUBLIC	'CODE'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+CONVERT  . . . . . . . . . . . .  	L NEAR	0000		External
+
+MAIN . . . . . . . . . . . . . .  	N PROC	0000	_TEXT	Length = 0035
+
+NAAM . . . . . . . . . . . . . .  	L BYTE	0000	_DATA	Length = 0006
+
+@CODE  . . . . . . . . . . . . .  	TEXT  _TEXT		
+@CODESIZE  . . . . . . . . . . .  	TEXT  0		
+@DATASIZE  . . . . . . . . . . .  	TEXT  0		
+@FILENAME  . . . . . . . . . . .  	TEXT  PG1		
+
+
+     32 Source  Lines
+     44 Total   Lines
+     17 Symbols
+
+  50640 + 465904 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

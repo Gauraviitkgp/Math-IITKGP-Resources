@@ -1,0 +1,83 @@
+Microsoft (R) Macro Assembler Version 5.00                  11/18/19 18:11:36
+                                                             Page     1-1
+
+
+				print macro REGS 
+					PUSH AX 
+					PUSH DX 
+					MOV AH,9 
+					IRP k,<REGS> 
+						LEA DX,K 
+						int 21h 
+					endm 
+					POP DX 
+					POP AX 
+				endm 
+				.model small 
+ 0100				.stack 100h 
+ 0000				.data 
+ 0000  47 61 75 72 61 76 24	names DB "Gaurav$"  
+ 0007  53 61 6E 63 69 6E 24	sachin DB "Sancin$" 
+ 0000				.code 
+ 0000  B8 ---- R		L1: MOV AX,@data 
+ 0003  8E D8			MOV DS,AX 
+ 0005  8E C0			MOV ES,AX 
+				 
+				print <names,sachin> 
+ 0007  50                    1		PUSH AX 
+ 0008  52                    1		PUSH DX 
+ 0009  B4 09                 1		MOV AH,9 
+ 000B  8D 16 0000 R          2			LEA DX,names 
+ 000F  CD 21                 2			int 21h 
+ 0011  8D 16 0007 R          2			LEA DX,sachin 
+ 0015  CD 21                 2			int 21h 
+ 0017  5A                    1		POP DX 
+ 0018  58                    1		POP AX 
+				 
+ 0019  B4 4C			MOV AH,76 
+ 001B  CD 21			Int 21h 
+ 001D				END 
+
+Microsoft (R) Macro Assembler Version 5.00                  11/18/19 18:11:36
+                                                             Symbols-1
+
+
+Macros:
+
+		N a m e			Lines
+
+PRINT  . . . . . . . . . . . . .  	   9
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+DGROUP . . . . . . . . . . . . .  	GROUP
+  _DATA  . . . . . . . . . . . .  	000E	WORD	PUBLIC	'DATA'
+  STACK  . . . . . . . . . . . .  	0100	PARA	STACK	'STACK'
+_TEXT  . . . . . . . . . . . . .  	001D	WORD	PUBLIC	'CODE'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+L1 . . . . . . . . . . . . . . .  	L NEAR	0000	_TEXT
+
+NAMES  . . . . . . . . . . . . .  	L BYTE	0000	_DATA
+
+SACHIN . . . . . . . . . . . . .  	L BYTE	0007	_DATA
+
+@CODE  . . . . . . . . . . . . .  	TEXT  _TEXT		
+@CODESIZE  . . . . . . . . . . .  	TEXT  0		
+@DATASIZE  . . . . . . . . . . .  	TEXT  0		
+@FILENAME  . . . . . . . . . . .  	TEXT  Q1		
+
+
+     26 Source  Lines
+     39 Total   Lines
+     18 Symbols
+
+  51216 + 465328 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

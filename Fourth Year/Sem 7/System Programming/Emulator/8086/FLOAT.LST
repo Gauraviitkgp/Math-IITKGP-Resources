@@ -1,0 +1,128 @@
+Microsoft (R) Macro Assembler Version 5.00                  11/18/19 24:46:48
+                                                             Page     1-1
+
+
+				.model small 
+				.8087 
+ 0000				.data 
+ 0000  00000000000000000000	K DT 0  
+ 0100				.stack 100h 
+ 0000				.code 
+ 0000  B8 ---- R		MOV AX,@data 
+ 0003  8E D8			MOV DS,AX 
+ 0005  8E C0			MOV ES,AX 
+				 
+				;Intialize 
+ 0007  8D 1E 0000 R		LEA BX,K 
+ 000B  33 D2			XOR DX,DX; DH digits after decimal point 
+ 000D  33 ED			XOR BP,BP 
+ 000F  8B F3			MOV SI,BX 
+				 
+ 0011				R1: 
+ 0011  B4 01				MOV AH,1 
+ 0013  CD 21				int 21h 
+ 0015  3C 2D				CMP AL,'-' 
+ 0017  75 06				JNE R2 
+ 0019  C6 47 09 80			MOV BYTE PTR [BX+9],128d 
+ 001D  EB F2				JMP R1 
+				 
+ 001F				R2: 
+ 001F  3C 2E				CMP AL,'.' 
+ 0021  75 04				JNE R3 
+ 0023  FE C6				INC DH 
+ 0025  EB EA				JMP R1 
+				 
+ 0027				R3: 
+ 0027  3C 0D				CMP AL,0Dh 
+ 0029  74 0D				JE R4 
+ 002B  24 0F				AND AL,0Fh 
+ 002D  50				PUSH AX 
+ 002E  45				INC BP 
+ 002F  80 FE 00				CMP DH,0 
+ 0032  74 DD				JE R1 
+ 0034  FE C2				INC DL 
+ 0036  EB D9				JMP R1 
+					 
+ 0038				R4: 
+ 0038  B1 04				MOV CL,4 
+ 003A				R5: 
+ 003A  58				POP AX 
+ 003B  88 07				MOV [BX],AL 
+ 003D  4D				DEC BP 
+ 003E  74 09				JZ R6 
+ 0040  58				POP AX 
+ 0041  D2 E0				SHL AL,CL 
+ 0043  08 07				OR [BX],AL 
+ 0045  43				INC BX 
+ 0046  4D				DEC BP 
+ 0047  7F F1				JG R5 
+Microsoft (R) Macro Assembler Version 5.00                  11/18/19 24:46:48
+                                                             Page     1-2
+
+
+				 
+ 0049				R6:	    
+ 0049  9B DF 24				FBLD TBYTE PTR[SI] 
+ 004C  80 FA 00				CMP DL,0 
+ 004F  74 13				JE R7 
+ 0051  33 C9				XOR CX,CX 
+ 0053  8A CA				MOV CL,DL 
+ 0055  B8 0001				MOV AX,1 
+ 0058  BB 000A				MOV BX,10 
+					 
+ 005B				R8: 
+ 005B  F7 EB				IMUL BX 
+ 005D  E2 FC				Loop R8 
+ 005F  89 04				MOV [SI],AX 
+ 0061  9B DE 34				FIDIV WORD PTR[SI] 
+ 0064				R7: 
+ 0064  9B DF 34				FBSTP TBYTE PTR[SI] 
+					 
+ 0067  9B			FWAIT 
+ 0068  B4 4C			MOV AH,76 
+ 006A  CD 21			Int 21h 
+				 
+				 
+ 006C				END 
+Microsoft (R) Macro Assembler Version 5.00                  11/18/19 24:46:48
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+DGROUP . . . . . . . . . . . . .  	GROUP
+  _DATA  . . . . . . . . . . . .  	000A	WORD	PUBLIC	'DATA'
+  STACK  . . . . . . . . . . . .  	0100	PARA	STACK	'STACK'
+_TEXT  . . . . . . . . . . . . .  	006C	WORD	PUBLIC	'CODE'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+K  . . . . . . . . . . . . . . .  	L TBYTE	0000	_DATA
+
+R1 . . . . . . . . . . . . . . .  	L NEAR	0011	_TEXT
+R2 . . . . . . . . . . . . . . .  	L NEAR	001F	_TEXT
+R3 . . . . . . . . . . . . . . .  	L NEAR	0027	_TEXT
+R4 . . . . . . . . . . . . . . .  	L NEAR	0038	_TEXT
+R5 . . . . . . . . . . . . . . .  	L NEAR	003A	_TEXT
+R6 . . . . . . . . . . . . . . .  	L NEAR	0049	_TEXT
+R7 . . . . . . . . . . . . . . .  	L NEAR	0064	_TEXT
+R8 . . . . . . . . . . . . . . .  	L NEAR	005B	_TEXT
+
+@CODE  . . . . . . . . . . . . .  	TEXT  _TEXT		
+@CODESIZE  . . . . . . . . . . .  	TEXT  0		
+@DATASIZE  . . . . . . . . . . .  	TEXT  0		
+@FILENAME  . . . . . . . . . . .  	TEXT  READ_F~1		
+
+
+     78 Source  Lines
+     78 Total   Lines
+     23 Symbols
+
+  50998 + 465546 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

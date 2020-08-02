@@ -1,0 +1,70 @@
+Microsoft (R) Macro Assembler Version 5.00                  11/18/19 19:08:49
+                                                             Page     1-1
+
+
+       1				.model SMALL 
+       2				PUBLIC Convert 
+       3 0100				.stack 100h 
+       4 0000				.data 
+       5 0000				.code 
+       6 0000				CONVERT PROC near 
+       7				;Input SI=Source CX=size 
+       8 0000  57			PUSH DI 
+       9 0001  50			PUSH AX 
+      10 0002  8B FE			MOV DI,SI 
+      11 0004				L1: 
+      12 0004  AC				LODSB 
+      13 0005  41				INC CX 
+      14 0006  3C 61				CMP AL,'a' 
+      15 0008  7C 06				JL nxt 
+      16 000A  3C 7A				CMP AL,'z' 
+      17 000C  7F 02				JG nxt 
+      18 000E  2C 20				SUB AL,'a'-'A' 
+      19 0010					nxt: 
+      20 0010  AA					STOSB 
+      21 0011  41					INC CX 
+      22 0012  E2 F0					LOOP L1 
+      23					 
+      24					 
+      25 0014  5F			POP DI 
+      26 0015  58			POP AX	 
+      27 0016  C3			RET 
+      28 0017				CONVERT ENDP 
+      29 0017				END 
+Microsoft (R) Macro Assembler Version 5.00                  11/18/19 19:08:49
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+DGROUP . . . . . . . . . . . . .  	GROUP
+  _DATA  . . . . . . . . . . . .  	0000	WORD	PUBLIC	'DATA'
+  STACK  . . . . . . . . . . . .  	0100	PARA	STACK	'STACK'
+_TEXT  . . . . . . . . . . . . .  	0017	WORD	PUBLIC	'CODE'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+CONVERT  . . . . . . . . . . . .  	N PROC	0000	_TEXT	Global	Length = 0017
+
+L1 . . . . . . . . . . . . . . .  	L NEAR	0004	_TEXT
+
+NXT  . . . . . . . . . . . . . .  	L NEAR	0010	_TEXT
+
+@CODE  . . . . . . . . . . . . .  	TEXT  _TEXT		
+@CODESIZE  . . . . . . . . . . .  	TEXT  0		
+@DATASIZE  . . . . . . . . . . .  	TEXT  0		
+@FILENAME  . . . . . . . . . . .  	TEXT  PG2		
+
+
+     29 Source  Lines
+     29 Total   Lines
+     17 Symbols
+
+  50606 + 465938 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

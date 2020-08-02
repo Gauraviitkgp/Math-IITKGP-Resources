@@ -1,0 +1,29 @@
+.model small
+.stack 100h
+.data
+ARR DB 4 DUP(?)
+.code
+MOV AX,@data
+MOV DS,AX
+MOV ES,AX
+XOR BX,BX
+LEA SI,ARR
+
+MOV AH,1
+MOV CX,4
+L1:
+	int 21h
+	MOV [SI],AL
+	ADD BL,AL
+	INC SI
+	LOOP L1
+
+MOV AH,2
+MOV DL,BL
+ADD DL,48
+
+int 21h
+
+MOV AH,76
+int 21h
+END
