@@ -1,5 +1,12 @@
 # Math-IITKGP-Resources
+
 Resources for Math IITKGP
+A collection of useful material for IIT Kgp students
+
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
 to contribute to the repository Follow these steps:
 1. Find the year your course is being taken in. Kindly be specific to the course content timeline of IIT Kharagpur MnC course. Link(https://erp.iitkgp.ac.in/ERPWebServices/curricula/CurriculaSubjectsList.jsp?stuType=UG&splCode=MA)
 2. Find the semester your course is being taken in.
@@ -9,3 +16,4 @@ to contribute to the repository Follow these steps:
 
 NOTE: step 4 is for future uploads. I've not yet done it for my courses due to lack of time, will do as soon as possible.
 EDIT: contributers would be duly recognized
+
